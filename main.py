@@ -1,10 +1,11 @@
 from tkinter import *
 from tkinter import ttk
+import os
 
 # Make window
 root = Tk()
 root.title("Tic Tac Toe")
-root.geometry("300x300")
+root.geometry("238x255")
 
 # Winning Possibilites
 wins = [(1,2,3),(4,5,6), (7,8,9),(1,5,9), (3,5,7),(1,4,7),(2,5,8), (3,6,9)]
@@ -39,6 +40,8 @@ def check_winnder(player):
     
     return 1
 
+path = os.path.dirname(os.path.realpath(__file__))
+
 def play(s, cbutton):
     global turn
     global total_turn
@@ -53,11 +56,12 @@ def play(s, cbutton):
     elif(s in player1 or s in player2 or end_game == TRUE):
         # Make sure no one is able to click on the same spot more than once
         return
-
+    
     # How game takes turns    
     if turn == 0:
         player1.append(s)
-        # img = PhotoImage(file='images/circle.png')
+        # img = PhotoImage(file= path + '/images/circle.png')        
+        # cbutton.config(image = img)
         cbutton.config(bg='red')
         if (check_winnder(player1) == 0):
             end_game = TRUE
@@ -65,7 +69,8 @@ def play(s, cbutton):
             popup_window()     
     else:
         player2.append(s)
-        # cbutton.config(image = PhotoImage(file ='images/x.png'))
+        # img = PhotoImage(file= path + '/images/x.png')
+        # cbutton.config(image = img)
         cbutton.config(bg='blue')
         if(check_winnder(player2) == 0):
             end_game = TRUE
