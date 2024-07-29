@@ -16,6 +16,7 @@ player2 = []
 # 1 = player2's turn
 turn = 0
 total_turn = 0
+end_game = False
 
 def check_winnder(player):
     for tpl in wins:
@@ -27,11 +28,13 @@ def check_winnder(player):
 def play(s, cbutton):
     global turn
     global total_turn
+    global end_game
 
     if(total_turn > 9):
         # Game should end after all spots are filled
+        end_game = TRUE
         print("Game Over")
-    elif(s in player1 or s in player2):
+    elif(s in player1 or s in player2 or end_game == TRUE):
         # Make sure no one is able to click on the same spot more than once
         return
 
@@ -41,12 +44,14 @@ def play(s, cbutton):
         # img = PhotoImage(file='images/circle.png')
         cbutton.config(bg='red')
         if (check_winnder(player1) == 0):
+            end_game = TRUE
             print("Player 1 wins")       
     else:
         player2.append(s)
         # cbutton.config(image = PhotoImage(file ='images/x.png'))
         cbutton.config(bg='blue')
         if(check_winnder(player2) == 0):
+            end_game = TRUE
             print("Player 2 wins")       
     
     total_turn += 1
